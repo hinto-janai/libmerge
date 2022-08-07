@@ -20,6 +20,8 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+#git <libmerge/merge.sh/a217971>
+
 merge() {
 	# init local variables.
 	local LIBMERGE_OLD LIBMERGE_NEW LIBMERGE_TMP LIBMERGE_CMD IFS=$'\n' i || return 1
