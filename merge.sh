@@ -20,7 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-#git <libmerge/merge.sh/a217971>
+#git <libmerge/merge.sh/a0206db>
 
 merge() {
 	# init local variables.
@@ -72,16 +72,16 @@ merge() {
 			if printf "%s\n" "$LIBMERGE_NEW" | grep --quiet "^${i/=*/=}.*$"; then
 			# import: value from old is imported into new
 				LIBMERGE_NEW="$(printf "%s\n" "$LIBMERGE_NEW" | sed "s|^${i/=*/=}.*$|$i|g")" || return 12
-				printf "\e[0;94m~ %s\n" "$i"
+				printf "\e[0;94m~ %s\e[0m\n" "$i"
 
 			# else, deprecated: in old, not in new
 			else
-				printf "\e[0;91m- %s\n" "$i"
+				printf "\e[0;91m- %s\e[0m\n" "$i"
 			fi
 		done
 		# additions in new that weren't found in old
 		if LIBMERGE_DIFF=$(printf "%s\n" "$LIBMERGE_NEW" | grep -vxf "$1"); then
-			printf "\e[0;92m+ %s\n" $LIBMERGE_DIFF
+			printf "\e[0;92m+ %s\e[0m\n" $LIBMERGE_DIFF
 		fi
 
 	# FUNCTION USE: just final output
@@ -95,7 +95,4 @@ merge() {
 		# invoke sed once, with the long argument we just created
 		printf "%s\n" "$LIBMERGE_NEW" | sed "$LIBMERGE_SED_CMD" || return 12
 	fi
-
-	# turn off color
-	printf "\e[0m"
 }
