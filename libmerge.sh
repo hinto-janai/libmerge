@@ -1,4 +1,4 @@
-# libmerge
+# libmerge.sh
 #
 # Copyright (c) 2022 hinto.janaiyo <https://github.com/hinto-janaiyo>
 #
@@ -20,7 +20,12 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-#git <libmerge/merge.sh/a0206db>
+#git <libmerge/libmerge.sh/6ea5717>
+
+# // TODO
+# // 1. handle multiple of same option (option=one, option=two)
+# // 2. handle old option -> new option with #
+# // 3. fix sed string
 
 merge() {
 	# init local variables.
@@ -90,9 +95,11 @@ merge() {
 		# find/replace argument for sed
 		# instead of invoking it every loop
 		for i in ${LIBMERGE_OLD[@]}; do
-			LIBMERGE_SED_CMD="s|^${i/=*/=}.*$|$i|g; $LIBMERGE_SED_CMD"
+			LIBMERGE_SED_CMD="s|${i/=*/=}.*$|${i}|g; ${LIBMERGE_SED_CMD}"
 		done
 		# invoke sed once, with the long argument we just created
-		printf "%s\n" "$LIBMERGE_NEW" | sed "$LIBMERGE_SED_CMD" || return 12
+		LIBMERGE_SED_CMD="\'${LIBMERGE_SED_CMD}\'"
+		echo "$LIBMERGE_SED_CMD"
+		printf "%s\n" "$LIBMERGE_NEW" | sed "${LIBMERGE_SED_CMD}" || return 12
 	fi
 }

@@ -1,4 +1,4 @@
-# libmerge
+# WORK IN PROGRESS - libmerge
 >Function for merging files together in Bash
 
 ## Contents
